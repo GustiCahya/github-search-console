@@ -19,6 +19,13 @@ const styles = {
   textField: {
     fontFamily: "Jost",
   },
+  desc: {
+    fontFamily: "Jost",
+    fontSize: 14,
+    lineHeight: "20px",
+    my: 2,
+  },
+  cards: {},
 };
 
 export default function Main() {
@@ -28,11 +35,11 @@ export default function Main() {
   //   React.useEffect(() => {
   //     dispatch(getUsers());
   //   }, [dispatch]);
-  //   const breakpoints = {
-  //     default: 3,
-  //     1100: 2,
-  //     700: 1,
-  //   }
+  const breakpoints = {
+    default: 3,
+    1100: 2,
+    700: 1,
+  };
   return (
     <Container>
       <TextField
@@ -60,22 +67,32 @@ export default function Main() {
           }
         }}
       />
-      {/* {search.length > 0 && users.length === 0 ? (
-        <SearchNotFound />
+      {users.length > 0 ? (
+        <Typography sx={styles.desc}>
+          {users.length} Github users found
+        </Typography>
+      ) : null}
+      {search.length > 0 && users.length === 0 ? (
+        <SearchNotFound /> ? (
+          users.length === 0
+        ) : (
+          <Welcome />
+        )
       ) : (
-        <Welcome />
-      )} */}
-      {/* <Masonry
-        breakpointCols={breakpoints}
-        className="my-masonry-grid"
-        columnClassName="my-masonry-grid_column"
-      >
-        {users.map((user) => (
-          <Box key={user.id}>
-            <UserCard user={user} />
-          </Box>
-        ))}
-      </Masonry> */}
+        <Box sx={styles.cards}>
+          <Masonry
+            breakpointCols={breakpoints}
+            className="my-masonry-grid"
+            columnClassName="my-masonry-grid_column"
+          >
+            {users.map((user) => (
+              <Box key={user.id}>
+                <UserCard user={user} />
+              </Box>
+            ))}
+          </Masonry>
+        </Box>
+      )}
     </Container>
   );
 }

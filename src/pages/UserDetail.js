@@ -1,7 +1,8 @@
 import React from 'react'
+import { Container } from '@mui/material'
 
 export default function UserDetail() {
   return (
-    <div>UserDetail</div>
+    <Container>UserDetail</Container>
   )
 }

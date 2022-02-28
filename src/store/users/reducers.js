@@ -1,6 +1,31 @@
 import types from "./types";
 
-const initialState = [];
+const initialState = [
+  {
+    name: "Bob",
+    followers: 12900,
+    followings: 800,
+    like: false
+  },
+  {
+    name: "Dormamu",
+    followers: 12900,
+    followings: 800,
+    like: false
+  },
+  {
+    name: "Thomas",
+    followers: 12900,
+    followings: 800,
+    like: false
+  },
+  {
+    name: "Black Mamba",
+    followers: 12900,
+    followings: 800,
+    like: false
+  },
+];
 
 function reducer(state = initialState, action) {
   switch (action.type) {

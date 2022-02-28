@@ -7,18 +7,21 @@ import {
   Typography,
   CardMedia,
   Box,
+  Tooltip,
 } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useDispatch } from "react-redux";
 import nFormatter from "../../utils/nFormatter";
+import { likeUser } from "../../store/users/actions";
+import { Link } from "react-router-dom";
 
 const styles = {
   card: {
     display: "flex",
     alignItems: "center",
     borderRadius: "10px",
-    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.1);"
+    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.1);",
   },
   cardMedia: {
     width: 151,
@@ -26,21 +29,25 @@ const styles = {
     borderRadius: "4px",
     m: "8px",
     mr: 0,
-    objectFit: "contain"
+    objectFit: "contain",
   },
   cardHeader: {
     display: "flex",
     pb: 0,
-    "& .MuiCardHeader-title": {
-      fontFamily: "Jost",
-      fontSize: 16,
-      lineHeight: "24px",
-      fontWeight: "bold",
-      flexGrow: 1
-    },
+  },
+  cardTitle: {
+    fontFamily: "Jost",
+    fontSize: 16,
+    lineHeight: "24px",
+    fontWeight: "bold",
+    flexGrow: 1,
+    "& a": {
+      textDecoration: 'none',
+      color: 'inherit'
+    }
   },
   cardContent: {
-    pt: "6px"
+    pt: "6px",
   },
   text: {
     fontFamily: "Jost",
@@ -49,14 +56,11 @@ const styles = {
   },
 };
 
-const initial = {
-  name: "Bob",
-  followers: 17400,
-  followings: 103,
-};
-
-export default function UserCard({ user = initial }) {
+export default function UserCard({ user }) {
   const dispatch = useDispatch();
+  // force update component
+  const [, updateState] = React.useState();
+  const forceUpdate = React.useCallback(() => updateState({}), []);
   return (
     <Card elevation={1} sx={styles.card}>
       <CardMedia
@@ -65,15 +69,32 @@ export default function UserCard({ user = initial }) {
         image="/logo512.png"
         alt="User Profile Picture"
       />
-      <Box sx={{width: "100%"}}>
+      <Box sx={{ width: "100%" }}>
         <CardHeader
           sx={styles.cardHeader}
           action={
-            <IconButton>
-              <FavoriteBorderIcon />
+            <IconButton
+              onClick={(e) => {
+                e.stopPropagation();
+                user.like = !user.like;
+                dispatch(likeUser(user));
+                forceUpdate();
+              }}
+            >
+              {user.like ? (
+                <FavoriteIcon color="secondary" />
+              ) : (
+                <FavoriteBorderIcon color="secondary" />
+              )}
             </IconButton>
           }
-          title={user.name}
+          title={
+            <Typography sx={styles.cardTitle}>
+              <Tooltip title="Click to see user detail">
+                <Link to={`/users/${user.name}`}>{user.name}</Link>
+              </Tooltip>
+            </Typography>
+          }
         />
         <CardContent sx={styles.cardContent}>
           <Typography sx={styles.text} variant="body2" color="textSecondary">

@@ -103,7 +103,7 @@ export default function Layout({ children }) {
   const title = React.useMemo(() => {
     const pathname = location.pathname;
     const item = menuItems.find((item) => new RegExp(pathname, 'gi').test(item.path));
-    return item.text;
+    return item?.text;
   }, [menuItems, location]);
   return (
     <Box>

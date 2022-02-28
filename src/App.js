@@ -3,20 +3,26 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Main from "./pages/Main";
 import Liked from "./pages/Liked";
-import { purple } from "@mui/material/colors";
+import UserDetail from "./pages/UserDetail";
 import Layout from "./layouts/Layout";
+import LayoutDetail from "./layouts/LayoutDetail";
 
 const theme = createTheme({
   palette: {
-    secondary: purple
-  }
+    secondary: {
+      light: "#ff7961",
+      main: "#f44336",
+      dark: "#ba000d",
+      contrastText: "#000",
+    },
+  },
 });
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        <Layout >
+        <Layout>
           <Switch>
             <Route exact path="/">
               <Main />
@@ -24,11 +30,15 @@ function App() {
             <Route path="/liked">
               <Liked />
             </Route>
-            <Route path="/users/:username">
-              <Main />
-            </Route>
           </Switch>
         </Layout>
+        <LayoutDetail>
+          <Switch>
+            <Route path="/users/:username">
+              <UserDetail />
+            </Route>
+          </Switch>
+        </LayoutDetail>
       </Router>
     </ThemeProvider>
   );
