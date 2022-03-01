@@ -10,9 +10,10 @@ import UserCard from "../components/atoms/UserCard";
 import { useSelector, useDispatch } from "react-redux";
 import { getUsers } from "../store/users/actions";
 import CancelIcon from "@mui/icons-material/Cancel";
-import Masonry from "react-masonry-css";
 import Welcome from "../components/molecules/Welcome";
 import SearchNotFound from "../components/molecules/SearchNotFound";
+import GridMasonry from "../components/atoms/GridMasonry";
+import thousandSeparator from "../utils/thousandSeparator";
 import { setSearch } from "../store/search/actions";
 
 const styles = {
@@ -35,11 +36,6 @@ export default function Main() {
   //   React.useEffect(() => {
   //     dispatch(getUsers());
   //   }, [dispatch]);
-  const breakpoints = {
-    default: 3,
-    1100: 2,
-    700: 1,
-  };
   return (
     <Container>
       <TextField
@@ -69,7 +65,7 @@ export default function Main() {
       />
       {users.length > 0 ? (
         <Typography sx={styles.desc}>
-          {users.length} Github users found
+          {thousandSeparator(users.length)} Github users found
         </Typography>
       ) : null}
       {search.length > 0 && users.length === 0 ? (
@@ -79,19 +75,13 @@ export default function Main() {
           <Welcome />
         )
       ) : (
-        <Box sx={styles.cards}>
-          <Masonry
-            breakpointCols={breakpoints}
-            className="my-masonry-grid"
-            columnClassName="my-masonry-grid_column"
-          >
-            {users.map((user) => (
-              <Box key={user.id}>
-                <UserCard user={user} />
-              </Box>
-            ))}
-          </Masonry>
-        </Box>
+        <GridMasonry sx={styles.cards}>
+          {users.map((user) => (
+            <Box key={user.id}>
+              <UserCard user={user} />
+            </Box>
+          ))}
+        </GridMasonry>
       )}
     </Container>
   );

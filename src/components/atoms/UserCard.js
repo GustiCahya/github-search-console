@@ -66,27 +66,29 @@ export default function UserCard({ user }) {
       <CardMedia
         sx={styles.cardMedia}
         component="img"
-        image="/logo512.png"
+        image={user.picture || "/profile.png"}
         alt="User Profile Picture"
       />
       <Box sx={{ width: "100%" }}>
         <CardHeader
           sx={styles.cardHeader}
           action={
-            <IconButton
-              onClick={(e) => {
-                e.stopPropagation();
-                user.like = !user.like;
-                dispatch(likeUser(user));
-                forceUpdate();
-              }}
-            >
-              {user.like ? (
-                <FavoriteIcon color="secondary" />
-              ) : (
-                <FavoriteBorderIcon color="secondary" />
-              )}
-            </IconButton>
+            <Tooltip title={`Like this user`}>
+              <IconButton
+                onClick={(e) => {
+                  e.stopPropagation();
+                  user.like = !user.like;
+                  dispatch(likeUser(user));
+                  forceUpdate();
+                }}
+              >
+                {user.like ? (
+                  <FavoriteIcon color="secondary" />
+                ) : (
+                  <FavoriteBorderIcon color="secondary" />
+                )}
+              </IconButton>
+            </Tooltip>
           }
           title={
             <Typography sx={styles.cardTitle}>

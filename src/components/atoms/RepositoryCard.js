@@ -3,13 +3,9 @@ import {
   Card,
   CardContent,
   CardHeader,
-  IconButton,
   Typography,
-  CardMedia,
   Box,
 } from "@mui/material";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { useDispatch } from "react-redux";
 import nFormatter from "../../utils/nFormatter";
 
 const styles = {
@@ -55,7 +51,6 @@ const initial = {
 };
 
 export default function RepositoryCard({ repository = initial }) {
-  const dispatch = useDispatch();
   return (
     <Card elevation={1} sx={styles.card}>
       <Box sx={{width: "100%"}}>
