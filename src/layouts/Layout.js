@@ -17,7 +17,7 @@ import SwitchDarkMode from "../components/atoms/SwitchDarkMode";
 const styles = {
   page: {
     my: 4,
-    width: "100%",
+    width: "100%"
   },
   title: {
     flexGrow: 1,

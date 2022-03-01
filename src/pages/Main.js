@@ -87,29 +87,27 @@ export default function Main() {
         </Typography>
       ) : null}
       {/* display items */}
-      {
-      search.length > 0 && users.length === 0 
-        ? <SearchNotFound /> 
-        : users.length > 0
-        ? (
-            <Box sx={styles.boxContainer}>
-              <GridMasonry sx={styles.cards}>
-                {users.map((user) => (
-                  <Box key={user.id}>
-                    <UserCard user={user} />
-                  </Box>
-                ))}
-              </GridMasonry>
-              <Pagination
-                sx={styles.boxPagination}
-                count={6}
-                shape="rounded"
-                color="primary"
-              />
-            </Box>
-          )
-        : <Welcome />
-      }
+      {search.length > 0 && users.length === 0 ? (
+        <SearchNotFound />
+      ) : users.length > 0 ? (
+        <Box sx={styles.boxContainer}>
+          <GridMasonry sx={styles.cards}>
+            {users.map((user) => (
+              <Box key={user.id}>
+                <UserCard user={user} />
+              </Box>
+            ))}
+          </GridMasonry>
+          <Pagination
+            sx={styles.boxPagination}
+            count={6}
+            shape="rounded"
+            color="primary"
+          />
+        </Box>
+      ) : (
+        <Welcome />
+      )}
     </Container>
   );
 }

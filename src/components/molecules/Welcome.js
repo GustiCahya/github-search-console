@@ -3,9 +3,10 @@ import {
     Box,
     Typography,
   } from "@mui/material";
+import { ReactComponent as GithubLogo } from "../../assets/images/github-logo.svg";
 import { ReactComponent as GithubLabel } from "../../assets/images/github-label.svg";
-import GitHubIcon from "@mui/icons-material/GitHub";
 
+const fillColor = (theme) => theme.palette.mode === "dark" ? "rgba(255,255,255,0.5)" : "rgba(0,0,0,0.5)";
 const styles = {
     welcome: {
       display: "flex",
@@ -13,15 +14,19 @@ const styles = {
       alignItems: "center",
       justifyContent: "center",
       textAlign: "center",
-      color: "rgba(0,0,0,0.5)",
-      position: "absolute",
-      top: "53%",
-      left: "50%",
-      transform: 'translate(-50%,-50%)',
+      color: fillColor,
       py: 5,
+      "& *": {
+        fill: fillColor,
+      }
     },
     welcomeIcon: {
-      fontSize: 120,
+      width: 120
+    },
+    welcomeIconText: {
+      width: 139,
+      marginTop: 15,
+      marginBottom: 13,
     },
     welcomeText: {
       fontSize: 14,
@@ -35,8 +40,8 @@ const styles = {
 export default function Welcome() {
   return (
     <Box sx={styles.welcome}>
-      <GitHubIcon sx={styles.welcomeIcon} />
-      <GithubLabel />
+      <GithubLogo style={styles.welcomeIcon} />
+      <GithubLabel style={styles.welcomeIconText} fill="red" />
       <Typography sx={styles.welcomeText}>
         Enter GitHub username and search users matching the input like Google
         Search, click avatars to view more details, including repositories,

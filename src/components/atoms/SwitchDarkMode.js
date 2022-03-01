@@ -2,6 +2,8 @@ import React from "react";
 import Switch from "@mui/material/Switch";
 import Tooltip from "@mui/material/Tooltip";
 import { styled, useTheme } from "@mui/material/styles";
+import { useDispatch } from "react-redux";
+import { toggleDarkmode } from "../../store/theme/actions";
 
 const DarkModeSwitch = styled(Switch)(({ theme }) => ({
   width: 62,
@@ -52,6 +54,10 @@ const DarkModeSwitch = styled(Switch)(({ theme }) => ({
 
 export default function SwitchDarkMode() {
   const theme = useTheme();
+  const dispatch = useDispatch();
+  const isDark = React.useMemo(() => {
+    return theme.palette.mode === "dark";
+  }, [theme]);
   return (
     <Tooltip
       title={
@@ -60,7 +66,10 @@ export default function SwitchDarkMode() {
           : `Toggle light mode`
       }
     >
-      <DarkModeSwitch sx={{ m: 1 }} />
+      <DarkModeSwitch
+        defaultChecked={isDark}
+        onChange={(e) => dispatch(toggleDarkmode(e.target.checked))}
+      />
     </Tooltip>
   );
 }

@@ -6,6 +6,7 @@ import {
 import SearchIcon from '@mui/icons-material/Search';
 import { useSelector } from "react-redux";
 
+const fillColor = (theme) => theme.palette.mode === "dark" ? "rgba(255,255,255,0.5)" : "rgba(0,0,0,0.5)";
 const styles = {
     box: {
       display: "flex",
@@ -21,7 +22,7 @@ const styles = {
     },
     boxIcon: {
       fontSize: 36,
-      color: "rgba(0,0,0,0.5)",
+      color: fillColor,
       mb: "7px"
     },
     boxText: {
