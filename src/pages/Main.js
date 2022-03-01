@@ -5,6 +5,7 @@ import {
   TextField,
   Typography,
   IconButton,
+  Pagination,
 } from "@mui/material";
 import UserCard from "../components/atoms/UserCard";
 import { useSelector, useDispatch } from "react-redux";
@@ -27,6 +28,22 @@ const styles = {
     my: 2,
   },
   cards: {},
+  boxContainer: {
+    display: "flex",
+    flexDirection: "column",
+  },
+  boxPagination: {
+    my: 1,
+    alignSelf: "center",
+    "& .MuiPaginationItem-root": {
+      boxShadow:
+        "0px 1px 1px rgba(0, 0, 0, 0.2), 0px 2px 2px rgba(0, 0, 0, 0.14), 0px 1px 5px rgba(0, 0, 0, 0.12);",
+    },
+    "& .MuiPaginationItem-previousNext": {
+      borderRadius: "50%",
+      mx: 1.3,
+    },
+  },
 };
 
 export default function Main() {
@@ -63,26 +80,36 @@ export default function Main() {
           }
         }}
       />
+      {/* users count */}
       {users.length > 0 ? (
         <Typography sx={styles.desc}>
           {thousandSeparator(users.length)} Github users found
         </Typography>
       ) : null}
-      {search.length > 0 && users.length === 0 ? (
-        <SearchNotFound /> ? (
-          users.length === 0
-        ) : (
-          <Welcome />
-        )
-      ) : (
-        <GridMasonry sx={styles.cards}>
-          {users.map((user) => (
-            <Box key={user.id}>
-              <UserCard user={user} />
+      {/* display items */}
+      {
+      search.length > 0 && users.length === 0 
+        ? <SearchNotFound /> 
+        : users.length > 0
+        ? (
+            <Box sx={styles.boxContainer}>
+              <GridMasonry sx={styles.cards}>
+                {users.map((user) => (
+                  <Box key={user.id}>
+                    <UserCard user={user} />
+                  </Box>
+                ))}
+              </GridMasonry>
+              <Pagination
+                sx={styles.boxPagination}
+                count={6}
+                shape="rounded"
+                color="primary"
+              />
             </Box>
-          ))}
-        </GridMasonry>
-      )}
+          )
+        : <Welcome />
+      }
     </Container>
   );
 }

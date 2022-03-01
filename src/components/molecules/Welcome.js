@@ -3,7 +3,7 @@ import {
     Box,
     Typography,
   } from "@mui/material";
-import { ReactComponent as GithubLabel } from "../../assets/github-label.svg";
+import { ReactComponent as GithubLabel } from "../../assets/images/github-label.svg";
 import GitHubIcon from "@mui/icons-material/GitHub";
 
 const styles = {

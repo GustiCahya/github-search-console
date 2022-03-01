@@ -81,6 +81,7 @@ export default function Layout({ children }) {
       <Box sx={styles.page}>
         <Box sx={{height: (theme) => theme.mixins.toolbar}}></Box>
         {children}
+        <Box sx={{height: (theme) => theme.mixins.toolbar}}></Box>
       </Box>
       {/* bottom navigation */}
       {title && (

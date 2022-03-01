@@ -5,6 +5,7 @@ import Main from "./pages/Main";
 import Liked from "./pages/Liked";
 import UserDetail from "./pages/UserDetail";
 import Layout from "./layouts/Layout";
+import NotFound from "./pages/NotFound";
 
 const theme = createTheme({
   palette: {
@@ -26,9 +27,7 @@ function App() {
             <Route exact path="/" component={Main} />
             <Route exact path="/liked" component={Liked} />
             <Route exact path="/users/:username" component={UserDetail} />
-            <Route path="/*" component={() => (
-              <div>Not Found</div>
-            )} />
+            <Route path="/*" component={NotFound} />
           </Switch>
         </Layout>
       </Router>
