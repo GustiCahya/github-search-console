@@ -17,7 +17,7 @@ import SwitchDarkMode from "../components/atoms/SwitchDarkMode";
 const styles = {
   page: {
     my: 4,
-    width: "100%"
+    width: "100%",
   },
   title: {
     flexGrow: 1,
@@ -37,9 +37,6 @@ const styles = {
 };
 
 export default function Layout({ children }) {
-  const [bottomVal, setBottomVal] = React.useState(0);
-  const history = useHistory();
-  const location = useLocation();
   const menuItems = React.useMemo(
     () => [
       {
@@ -55,13 +52,20 @@ export default function Layout({ children }) {
     ],
     []
   );
-  const title = React.useMemo(() => {
+  const history = useHistory();
+  const location = useLocation();
+  const indexPath = React.useMemo(() => {
     const pathname = location.pathname;
-    const item = menuItems.find((item) =>
+    const index = menuItems.findIndex((item) =>
       new RegExp(pathname, "gi").test(item.path)
     );
-    return item?.text;
+    return index;
   }, [menuItems, location]);
+  const [bottomVal, setBottomVal] = React.useState(indexPath);
+  const title = React.useMemo(() => {
+    const item = menuItems[indexPath];
+    return item?.text;
+  }, [menuItems, indexPath]);
   return (
     <Box>
       {/* app bar */}
@@ -79,9 +83,9 @@ export default function Layout({ children }) {
       </AppBar>
       {/* content */}
       <Box sx={styles.page}>
-        <Box sx={{height: (theme) => theme.mixins.toolbar}}></Box>
+        <Box sx={{ height: (theme) => theme.mixins.toolbar }}></Box>
         {children}
-        <Box sx={{height: (theme) => theme.mixins.toolbar}}></Box>
+        <Box sx={{ height: (theme) => theme.mixins.toolbar }}></Box>
       </Box>
       {/* bottom navigation */}
       {title && (
@@ -98,7 +102,7 @@ export default function Layout({ children }) {
             return (
               <BottomNavigationAction
                 key={item.text}
-                button
+                button="true"
                 onClick={() => history.push(item.path)}
                 label={item.text}
                 icon={item.icon}

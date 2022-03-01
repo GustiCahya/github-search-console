@@ -1,41 +1,41 @@
 import types from "./types";
 
 const initialState = [
-  // {
-  //   name: "Bob",
-  //   picture: "/logo512.png",
-  //   followers: 12900,
-  //   followings: 800,
-  //   like: false,
-  //   repositories: [
-  //     {
-  //       name: "cobol",
-  //       stars: 5400,
-  //       forks: 29,
-  //     },
-  //   ],
-  // },
-  // {
-  //   name: "Dormamu",
-  //   picture: "/logo512.png",
-  //   followers: 12900,
-  //   followings: 800,
-  //   like: false,
-  // },
-  // {
-  //   name: "Thomas",
-  //   picture: "/logo512.png",
-  //   followers: 12900,
-  //   followings: 800,
-  //   like: false,
-  // },
-  // {
-  //   name: "Black Mamba",
-  //   picture: "/logo512.png",
-  //   followers: 12900,
-  //   followings: 800,
-  //   like: false,
-  // },
+  {
+    name: "Bob",
+    picture: "/logo512.png",
+    followers: 12900,
+    followings: 800,
+    like: false,
+    repositories: [
+      {
+        name: "cobol",
+        stars: 5400,
+        forks: 29,
+      },
+    ],
+  },
+  {
+    name: "Dormamu",
+    picture: "/logo512.png",
+    followers: 12900,
+    followings: 800,
+    like: false,
+  },
+  {
+    name: "Thomas",
+    picture: "/logo512.png",
+    followers: 12900,
+    followings: 800,
+    like: false,
+  },
+  {
+    name: "Black Mamba",
+    picture: "/logo512.png",
+    followers: 12900,
+    followings: 800,
+    like: false,
+  },
 ];
 
 function reducer(state = initialState, action) {
