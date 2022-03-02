@@ -13,10 +13,10 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import ApartmentIcon from "@mui/icons-material/Apartment";
 import nFormatter from "../utils/nFormatter";
-import GridMasonry from "../components/atoms/GridMasonry";
-import UserCard from "../components/atoms/UserCard";
-import RepositoryCard from "../components/atoms/RepositoryCard";
 import { getUser } from "../store/user/actions";
+import Repositories from "../components/organisms/Repositories";
+import Followers from "../components/organisms/Followers";
+import Following from "../components/organisms/Following";
 
 const styles = {
   head: {
@@ -57,21 +57,12 @@ const styles = {
 export default function UserDetail({ match }) {
   // user
   const username = React.useMemo(() => match.params.username, [match]);
-  const loading = useSelector((state) => state.loading);
+  const loading = useSelector((state) => state.loading.main);
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   React.useEffect(() => {
     dispatch(getUser(username));
   }, [dispatch, username]);
-  const repositories = React.useMemo(() => {
-    return user.repositories || [];
-  }, [user]);
-  const followers_items = React.useMemo(() => {
-    return user.followers_items || [];
-  }, [user]);
-  const following_items = React.useMemo(() => {
-    return user.following_items || [];
-  }, [user]);
   // tab
   const [value, setValue] = React.useState(0);
   const handleChange = (event, newValue) => {
@@ -145,64 +136,13 @@ export default function UserDetail({ match }) {
             </TabList>
           </Box>
           <TabPanel value={0}>
-            <GridMasonry sx={styles.cards}>
-              {loading
-                ? Array(9)
-                    .fill()
-                    .map((_, idx) => (
-                      <Skeleton
-                        key={idx}
-                        sx={{ borderRadius: "10px", mb: 3 }}
-                        variant="rectangular"
-                        height={90}
-                      />
-                    ))
-                : repositories.map((repo) => (
-                    <Box key={repo.id}>
-                      <RepositoryCard repo={repo} />
-                    </Box>
-                  ))}
-            </GridMasonry>
+            <Repositories username={username} />
           </TabPanel>
           <TabPanel value={1}>
-            <GridMasonry sx={styles.cards}>
-              {loading
-                ? Array(9)
-                    .fill()
-                    .map((_, idx) => (
-                      <Skeleton
-                        key={idx}
-                        sx={{ borderRadius: "10px", mb: 3 }}
-                        variant="rectangular"
-                        height={90}
-                      />
-                    ))
-                : followers_items.map((user) => (
-                    <Box key={user.id}>
-                      <UserCard user={user} />
-                    </Box>
-                  ))}
-            </GridMasonry>
+            <Followers username={username} />
           </TabPanel>
           <TabPanel value={2}>
-            <GridMasonry sx={styles.cards}>
-              {loading
-                ? Array(9)
-                    .fill()
-                    .map((_, idx) => (
-                      <Skeleton
-                        key={idx}
-                        sx={{ borderRadius: "10px", mb: 3 }}
-                        variant="rectangular"
-                        height={90}
-                      />
-                    ))
-                : following_items.map((user) => (
-                    <Box key={user.id}>
-                      <UserCard user={user} />
-                    </Box>
-                  ))}
-            </GridMasonry>
+            <Following username={username} />
           </TabPanel>
         </TabContext>
       </Box>

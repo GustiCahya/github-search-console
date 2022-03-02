@@ -6,3 +6,10 @@ export const setLoading = (payload) => {
     payload,
   };
 };
+
+export const setLoadingCards = (payload) => {
+  return {
+    type: types.SET_LOADING_CARDS,
+    payload,
+  };
+};

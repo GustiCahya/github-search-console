@@ -19,6 +19,7 @@ import reducers from "./store";
 const persistConfig = {
   key: "root",
   storage,
+  blacklist: ['users', 'loading']
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);

@@ -6,7 +6,7 @@ import UserCard from "../components/atoms/UserCard";
 import GridMasonry from "../components/atoms/GridMasonry";
 
 export default function Liked() {
-  const loading = useSelector((state) => state.loading);
+  const loading = useSelector((state) => state.loading.main);
   const likedUsers = useSelector((state) => state.likedUsers);
   return (
     <Container>

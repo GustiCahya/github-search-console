@@ -51,7 +51,7 @@ export default function Main() {
   const [page, setPage] = React.useState(1);
   const [search, setSearch] = React.useState("");
   const users = useSelector((state) => state.users);
-  const loading = useSelector((state) => state.loading);
+  const loading = useSelector((state) => state.loading.main);
   const dispatch = useDispatch();
   const searchUsers = React.useCallback(
     async (page = 1) => {

@@ -1,10 +1,28 @@
 import axios from "axios";
 import types from "./types";
-import { setLoading } from "../loading/actions";
+import { setLoading, setLoadingCards } from "../loading/actions";
 
 export const setUser = (payload) => {
   return {
     type: types.SET_USER,
+    payload,
+  };
+};
+export const setRepositories = (payload) => {
+  return {
+    type: types.SET_REPOSITORIES,
+    payload,
+  };
+};
+export const setFollowers = (payload) => {
+  return {
+    type: types.SET_FOLLOWERS,
+    payload,
+  };
+};
+export const setFollowing = (payload) => {
+  return {
+    type: types.SET_FOLLOWING,
     payload,
   };
 };
@@ -15,9 +33,29 @@ export const getUser = (username) => async (dispatch, getState) => {
     const user = await axios
       .get(`https://api.github.com/users/${username}`)
       .then((res) => res.data);
+    dispatch(setUser(user));
+  } catch (err) {
+    alert(err?.response?.data?.message || err?.message);
+  }
+  dispatch(setLoading(false));
+};
+
+export const getRepositories = (username) => async (dispatch, getState) => {
+  dispatch(setLoadingCards(true));
+  try {
     const repositories = await axios
       .get(`https://api.github.com/users/${username}/repos`)
       .then((res) => res.data);
+    dispatch(setRepositories(repositories));
+  } catch (err) {
+    alert(err?.response?.data?.message || err?.message);
+  }
+  dispatch(setLoadingCards(false));
+};
+
+export const getFollowers = (username) => async (dispatch, getState) => {
+  dispatch(setLoadingCards(true));
+  try {
     let followers_items = await axios
       .get(`https://api.github.com/users/${username}/followers`)
       .then((res) => res.data);
@@ -39,6 +77,16 @@ export const getUser = (username) => async (dispatch, getState) => {
         return result;
       }) || []
     );
+    dispatch(setFollowers(followers_items));
+  } catch (err) {
+    alert(err?.response?.data?.message || err?.message);
+  }
+  dispatch(setLoadingCards(false));
+};
+
+export const getFollowing = (username) => async (dispatch, getState) => {
+  dispatch(setLoadingCards(true));
+  try {
     let following_items = await axios
       .get(`https://api.github.com/users/${username}/following`)
       .then((res) => res.data);
@@ -60,12 +108,9 @@ export const getUser = (username) => async (dispatch, getState) => {
         return result;
       }) || []
     );
-    user.repositories = repositories;
-    user.followers_items = followers_items;
-    user.following_items = following_items;
-    dispatch(setUser(user));
+    dispatch(setFollowing(following_items));
   } catch (err) {
     alert(err?.response?.data?.message || err?.message);
   }
-  dispatch(setLoading(false));
+  dispatch(setLoadingCards(false));
 };
