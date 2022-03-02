@@ -6,3 +6,10 @@ export const likeUser = (payload) => {
     payload,
   };
 };
+
+export const dislikeUser = (payload) => {
+  return {
+    type: types.DISLIKE_USER,
+    payload,
+  };
+};

@@ -11,9 +11,9 @@ import {
 } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import nFormatter from "../../utils/nFormatter";
-import { likeUser } from "../../store/users/actions";
+import { likeUser, dislikeUser } from "../../store/likedUsers/actions";
 import { Link } from "react-router-dom";
 
 const styles = {
@@ -57,6 +57,7 @@ const styles = {
 };
 
 export default function UserCard({ user }) {
+  const likedUsers = useSelector((state) => state.likedUsers);
   const dispatch = useDispatch();
   // force update component
   const [, updateState] = React.useState();
@@ -73,22 +74,29 @@ export default function UserCard({ user }) {
         <CardHeader
           sx={styles.cardHeader}
           action={
-            <IconButton
-              onClick={(e) => {
-                e.stopPropagation();
-                user.like = !user.like;
-                dispatch(likeUser(user));
-                forceUpdate();
-              }}
-            >
-              {user.like ? (
-                <FavoriteIcon color="secondary" />
+            <>
+              {likedUsers.some((item) => item.id === user.id) ? (
+                <IconButton
+                  onClick={() => {
+                    dispatch(dislikeUser(user));
+                    forceUpdate();
+                  }}
+                >
+                  <FavoriteIcon color="secondary" />
+                </IconButton>
               ) : (
-                <Tooltip title={`Like this user`}>
-                  <FavoriteBorderIcon color="secondary" />
-                </Tooltip>
+                <IconButton
+                  onClick={() => {
+                    dispatch(likeUser(user));
+                    forceUpdate();
+                  }}
+                >
+                  <Tooltip title={`Like this user`}>
+                    <FavoriteBorderIcon color="secondary" />
+                  </Tooltip>
+                </IconButton>
               )}
-            </IconButton>
+            </>
           }
           title={
             <Typography sx={styles.cardTitle}>
