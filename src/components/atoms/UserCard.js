@@ -93,7 +93,7 @@ export default function UserCard({ user }) {
           title={
             <Typography sx={styles.cardTitle}>
               <Tooltip title="Click to see user detail">
-                <Link to={`/users/${user.username}`}>{user.username}</Link>
+                <Link to={`/users/${user.login}`}>{user.login}</Link>
               </Tooltip>
             </Typography>
           }

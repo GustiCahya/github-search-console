@@ -2,7 +2,7 @@ import types from "./types";
 
 const initialState = {
   palette: {
-    mode: localStorage.getItem("@themeMode") || "light",
+    mode: "light",
     secondary: {
       light: "#ff7961",
       main: "#f44336",

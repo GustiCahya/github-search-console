@@ -10,23 +10,38 @@ import axios from "axios";
 import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
-import { composeWithDevTools } from 'redux-devtools-extension';
+import { composeWithDevTools } from "redux-devtools-extension";
+import { persistStore, persistReducer } from "redux-persist";
+import { PersistGate } from "redux-persist/integration/react";
+import storage from "redux-persist/lib/storage";
 import reducers from "./store";
 
-axios.defaults.headers.common['Authorization'] = `Token ${process.env.REACT_APP_GITHUB_API_KEY}` 
+const persistConfig = {
+  key: "root",
+  storage,
+};
+
+const persistedReducer = persistReducer(persistConfig, reducers);
 
 const store = createStore(
-  reducers,
+  persistedReducer,
   composeWithDevTools(applyMiddleware(thunk))
 );
+const persistor = persistStore(store);
+
+axios.defaults.headers.common[
+  "Authorization"
+] = `Token ${process.env.REACT_APP_GITHUB_API_KEY}`;
 
 ReactDOM.render(
   <React.StrictMode>
     <ErrorBoundary>
       <Provider store={store}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        <PersistGate loading={null} persistor={persistor}>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </PersistGate>
       </Provider>
     </ErrorBoundary>
   </React.StrictMode>,

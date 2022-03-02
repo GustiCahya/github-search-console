@@ -9,13 +9,6 @@ export const setUsers = (payload) => {
   };
 };
 
-export const stateLikeUser = (payload) => {
-  return {
-    type: types.LIKE_USER,
-    payload,
-  };
-};
-
 export const getUsers = (username, page) => async (dispatch, getState) => {
   dispatch(setLoading(true));
   try {
@@ -26,19 +19,19 @@ export const getUsers = (username, page) => async (dispatch, getState) => {
       )
       .then((res) => res.data)
     const totalCount = result?.total_count || 0;
-    const total = totalCount > 1000 ? 1000 : totalCount; // limit for 1000 for views on github
+    const total = totalCount > 1000 ? 1000 : totalCount; // limit 1000 for views because of github rules
     const pagesLength = Math.ceil(total / per_page);
     const items = await Promise.all(
       result?.items?.map(async (item) => {
         const result = {
           id: item.id,
-          username: item.login,
+          login: item.login,
           avatar_url: item.avatar_url,
           followers: 0,
           following: 0,
         };
         const user = await axios
-          .get(`https://api.github.com/users/${result.username}`)
+          .get(`https://api.github.com/users/${result.login}`)
           .then((res) => res.data)
           .catch(() => ({}));
         result.followers = user.followers || 0;
@@ -56,14 +49,4 @@ export const getUsers = (username, page) => async (dispatch, getState) => {
     alert(err?.response?.data?.message || err?.message);
   }
   dispatch(setLoading(false));
-};
-
-export const likeUser = (user) => (dispatch, getState) => {
-  // return axios
-  //   .post("http://localhost:8000/users", user)
-  //   .then((result) => {
-  //     dispatch(stateAddUser(user))
-  //     return result;
-  //   })
-  //   .catch((err) => err);
 };

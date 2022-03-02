@@ -5,6 +5,8 @@ import {
   CardHeader,
   Typography,
   Box,
+  Tooltip,
+  Link
 } from "@mui/material";
 import nFormatter from "../../utils/nFormatter";
 
@@ -15,13 +17,16 @@ const styles = {
     borderRadius: "10px",
     boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.1);"
   },
-  cardMedia: {
-    width: 151,
-    height: 80,
-    borderRadius: "4px",
-    m: "8px",
-    mr: 0,
-    objectFit: "contain"
+  cardTitle: {
+    fontFamily: "Jost",
+    fontSize: 16,
+    lineHeight: "24px",
+    fontWeight: "bold",
+    flexGrow: 1,
+    "& a": {
+      textDecoration: "none",
+      color: "inherit",
+    },
   },
   cardHeader: {
     display: "flex",
@@ -44,26 +49,26 @@ const styles = {
   },
 };
 
-const initial = {
-  name: "cobol",
-  stars: 5400,
-  forks: 29,
-};
-
-export default function RepositoryCard({ repository = initial }) {
+export default function RepositoryCard({ repo = {} }) {
   return (
     <Card elevation={1} sx={styles.card}>
       <Box sx={{width: "100%"}}>
         <CardHeader
           sx={styles.cardHeader}
-          title={repository.name}
+          title={
+            <Typography sx={styles.cardTitle}>
+              <Tooltip title="Click to see repository on github">
+                <Link href={repo.html_url} target="_blank">{repo.name}</Link>
+              </Tooltip>
+            </Typography>
+          }
         />
         <CardContent sx={styles.cardContent}>
           <Typography sx={styles.text} variant="body2" color="textSecondary">
-            {nFormatter(repository.stars, 1)} stars
+            {nFormatter(repo.stargazers_count, 1)} stars
           </Typography>
           <Typography sx={styles.text} variant="body2" color="textSecondary">
-            {nFormatter(repository.forks, 1)} forks
+            {nFormatter(repo.forks, 1)} forks
           </Typography>
         </CardContent>
       </Box>
