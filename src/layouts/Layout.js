@@ -13,8 +13,13 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import SearchIcon from "@mui/icons-material/Search";
 import HomeIcon from "@mui/icons-material/Home";
 import SwitchDarkMode from "../components/atoms/SwitchDarkMode";
+import { useTheme } from "@mui/material/styles";
 
 const styles = {
+  appBar: {
+    backgroundColor: (theme) => theme.palette.mode === "dark" ? "#202124" : "white",
+    color: (theme) => theme.palette.mode === "dark" ? "white" : "black"
+  },
   page: {
     my: 4,
     width: "100%",
@@ -54,6 +59,7 @@ export default function Layout({ children }) {
   );
   const history = useHistory();
   const location = useLocation();
+  const theme = useTheme();
   const indexPath = React.useMemo(() => {
     const pathname = location.pathname;
     const index = menuItems.findIndex((item) =>
@@ -69,7 +75,7 @@ export default function Layout({ children }) {
   return (
     <Box>
       {/* app bar */}
-      <AppBar elevation={0} color="common">
+      <AppBar sx={styles.appBar} elevation={0}>
         <Toolbar>
           <Typography sx={styles.title} variant="h5" component="h1">
             {title || (

@@ -6,6 +6,7 @@ import {
   Typography,
   IconButton,
   Pagination,
+  Skeleton
 } from "@mui/material";
 import UserCard from "../components/atoms/UserCard";
 import { useSelector, useDispatch } from "react-redux";
@@ -15,7 +16,6 @@ import Welcome from "../components/molecules/Welcome";
 import SearchNotFound from "../components/molecules/SearchNotFound";
 import GridMasonry from "../components/atoms/GridMasonry";
 import thousandSeparator from "../utils/thousandSeparator";
-import { setSearch } from "../store/search/actions";
 
 const styles = {
   textField: {
@@ -47,12 +47,27 @@ const styles = {
 };
 
 export default function Main() {
-  const search = useSelector((state) => state.search);
+  const [isSubmit, setIsSubmit] = React.useState(false);
+  const [page, setPage] = React.useState(1);
+  const [search, setSearch] = React.useState("");
   const users = useSelector((state) => state.users);
+  const loading = useSelector((state) => state.loading);
   const dispatch = useDispatch();
-  //   React.useEffect(() => {
-  //     dispatch(getUsers());
-  //   }, [dispatch]);
+  const searchUsers = React.useCallback(
+    async (page = 1) => {
+        setPage(page);
+        dispatch(getUsers(search, page))
+        .then(() => setIsSubmit(true))
+        .catch(() => setIsSubmit(false))
+    },
+    [dispatch, search]
+  );
+  const choosePage = React.useCallback(
+    (_, page) => {
+      searchUsers(page);
+    },
+    [searchUsers]
+  );
   return (
     <Container>
       <TextField
@@ -66,48 +81,79 @@ export default function Main() {
                 opacity: search.length > 0 ? 1 : 0,
                 transition: "0.1s ease-in",
               }}
-              onClick={() => dispatch(setSearch(""))}
+              onClick={() => setSearch("")}
             >
               <CancelIcon />
             </IconButton>
           ),
         }}
         value={search}
-        onChange={(e) => dispatch(setSearch(e.target.value))}
+        onChange={(e) => setSearch(e.target.value)}
         onKeyUp={(e) => {
           if (e.key === "Delete") {
-            dispatch(setSearch(""));
+            setIsSubmit(false);
+            setSearch("");
+          }
+          if (e.key === "Enter") {
+            searchUsers();
+          }
+        }}
+        onKeyDown={(e) => {
+          if (e.key === "Backspace") {
+            setIsSubmit(false);
           }
         }}
       />
-      {/* users count */}
-      {users.length > 0 ? (
-        <Typography sx={styles.desc}>
-          {thousandSeparator(users.length)} Github users found
-        </Typography>
-      ) : null}
       {/* display items */}
-      {search.length > 0 && users.length === 0 ? (
-        <SearchNotFound />
-      ) : users.length > 0 ? (
-        <Box sx={styles.boxContainer}>
+      {loading ? (
+        <Box sx={{my: 2}}>
+          <Skeleton
+            sx={{mb: 1.5, borderRadius: "2px"}}
+            variant="text"
+            width={210}
+            height={25}
+          />
           <GridMasonry sx={styles.cards}>
-            {users.map((user) => (
+            {Array(9).fill().map((_, idx) => (
+              <Skeleton
+                key={idx}
+                sx={{borderRadius: "10px", mb: 3}}
+                variant="rectangular"
+                height={90}
+              />
+            ))}
+          </GridMasonry>
+        </Box>
+      ) : search.length > 0 && users.totalCount === 0 && isSubmit ? (
+        <SearchNotFound search={search} />
+      ) : users.totalCount > 0 ? (
+        <Box sx={styles.boxContainer}>
+          <Typography sx={styles.desc}>
+            {thousandSeparator(users.totalCount)} Github users found
+          </Typography>
+          <GridMasonry sx={styles.cards}>
+            {users.items.map((user) => (
               <Box key={user.id}>
                 <UserCard user={user} />
               </Box>
             ))}
           </GridMasonry>
-          <Pagination
-            sx={styles.boxPagination}
-            count={6}
-            shape="rounded"
-            color="primary"
-          />
         </Box>
       ) : (
         <Welcome />
       )}
+      {users.totalCount > 0 ? (
+        <Box sx={{display: 'flex', justifyContent: 'center'}}>
+          <Pagination
+            sx={styles.boxPagination}
+            count={users.pagesLength}
+            shape="rounded"
+            color="primary"
+            page={page}
+            onChange={choosePage}
+          />
+        </Box>
+      ) : null}
     </Container>
   );
 }

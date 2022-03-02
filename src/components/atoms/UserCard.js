@@ -29,7 +29,7 @@ const styles = {
     borderRadius: "4px",
     m: "8px",
     mr: 0,
-    objectFit: "contain",
+    objectFit: "cover",
   },
   cardHeader: {
     display: "flex",
@@ -66,7 +66,7 @@ export default function UserCard({ user }) {
       <CardMedia
         sx={styles.cardMedia}
         component="img"
-        image={user.picture || "/profile.png"}
+        image={user.avatar_url || "/profile.png"}
         alt="User Profile Picture"
       />
       <Box sx={{ width: "100%" }}>
@@ -93,17 +93,31 @@ export default function UserCard({ user }) {
           title={
             <Typography sx={styles.cardTitle}>
               <Tooltip title="Click to see user detail">
-                <Link to={`/users/${user.name}`}>{user.name}</Link>
+                <Link to={`/users/${user.username}`}>{user.username}</Link>
               </Tooltip>
             </Typography>
           }
         />
         <CardContent sx={styles.cardContent}>
-          <Typography sx={styles.text} variant="body2" color="textSecondary">
+          <Typography
+            sx={{
+              ...styles.text,
+              visibility: user.followers > 0 ? "visible" : "hidden",
+            }}
+            variant="body2"
+            color="textSecondary"
+          >
             {nFormatter(user.followers, 1)} followers
           </Typography>
-          <Typography sx={styles.text} variant="body2" color="textSecondary">
-            {nFormatter(user.followings, 1)} followings
+          <Typography
+            sx={{
+              ...styles.text,
+              visibility: user.following > 0 ? "visible" : "hidden",
+            }}
+            variant="body2"
+            color="textSecondary"
+          >
+            {nFormatter(user.following, 1)} followings
           </Typography>
         </CardContent>
       </Box>

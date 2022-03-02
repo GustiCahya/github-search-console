@@ -35,8 +35,7 @@ const styles = {
   };
   
 
-export default function SearchNotFound() {
-  const search = useSelector(state => state.search);
+export default function SearchNotFound({ search }) {
   return (
     <Box sx={styles.box}>
       <SearchIcon sx={styles.boxIcon} />

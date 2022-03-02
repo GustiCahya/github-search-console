@@ -1,4 +1,4 @@
 const types = {
-    SET_SEARCH : "SET_SEARCH",
+    SET_LOADING: "SET_LOADING",
 };
 export default types;

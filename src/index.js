@@ -5,12 +5,16 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import * as serviceWorker from "./serviceWorker";
+import ErrorBoundary from "./pages/ErrorBoundary";
+import axios from "axios";
 import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from 'redux-devtools-extension';
 import reducers from "./store";
-import ErrorBoundary from "./pages/ErrorBoundary";
+
+axios.defaults.headers.common['Authorization'] = `Token ${process.env.REACT_APP_GITHUB_API_KEY}` 
+
 const store = createStore(
   reducers,
   composeWithDevTools(applyMiddleware(thunk))

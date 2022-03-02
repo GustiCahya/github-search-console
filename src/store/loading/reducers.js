@@ -1,8 +1,8 @@
 import types from "./types";
 
-function reducer(state = "", action) {
+function reducer(state = false, action) {
   switch (action.type) {
-    case types.SET_SEARCH:
+    case types.SET_LOADING:
       return action.payload;
     default:
       return state;

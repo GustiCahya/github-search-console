@@ -13,7 +13,7 @@ function App() {
   const theme = React.useMemo(() => createTheme(themeState), [themeState]);
   React.useEffect(() => {
     if(theme){
-      document.body.style.backgroundColor = theme.palette.mode === "dark" ? theme.palette.grey[900] : "white";
+      document.body.style.backgroundColor = theme.palette.mode === "dark" ? "#202124" : "white";
       document.body.style.color = theme.palette.mode === "dark" ? "white" : "black";
     }
   }, [theme]);

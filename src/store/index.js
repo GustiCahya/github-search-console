@@ -1,10 +1,14 @@
 import theme from "./theme/reducers";
-import search from "./search/reducers";
+import loading from "./loading/reducers";
 import users from "./users/reducers";
+import user from "./user/reducers";
+import likedUsers from "./likedUsers/reducers";
 import { combineReducers } from "redux";
 
 export default combineReducers({
     theme,
-    search,
+    likedUsers,
     users,
+    user,
+    loading,
 });
