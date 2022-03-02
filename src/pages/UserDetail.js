@@ -84,6 +84,10 @@ export default function UserDetail({ match }) {
               sx={styles.avatar}
               alt="Profile Picture"
               src={user.avatar_url}
+              onError={({ currentTarget }) => {
+                currentTarget.onerror = null;
+                currentTarget.src="/profile.png";
+              }}
             />
             <Typography
               sx={{

@@ -69,6 +69,10 @@ export default function UserCard({ user }) {
         component="img"
         image={user.avatar_url || "/profile.png"}
         alt="User Profile Picture"
+        onError={({ currentTarget }) => {
+          currentTarget.onerror = null;
+          currentTarget.src="/profile.png";
+        }}
       />
       <Box sx={{ width: "100%" }}>
         <CardHeader
