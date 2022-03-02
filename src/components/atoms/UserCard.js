@@ -42,9 +42,9 @@ const styles = {
     fontWeight: "bold",
     flexGrow: 1,
     "& a": {
-      textDecoration: 'none',
-      color: 'inherit'
-    }
+      textDecoration: "none",
+      color: "inherit",
+    },
   },
   cardContent: {
     pt: "6px",
@@ -73,22 +73,22 @@ export default function UserCard({ user }) {
         <CardHeader
           sx={styles.cardHeader}
           action={
-            <Tooltip title={`Like this user`}>
-              <IconButton
-                onClick={(e) => {
-                  e.stopPropagation();
-                  user.like = !user.like;
-                  dispatch(likeUser(user));
-                  forceUpdate();
-                }}
-              >
-                {user.like ? (
-                  <FavoriteIcon color="secondary" />
-                ) : (
+            <IconButton
+              onClick={(e) => {
+                e.stopPropagation();
+                user.like = !user.like;
+                dispatch(likeUser(user));
+                forceUpdate();
+              }}
+            >
+              {user.like ? (
+                <FavoriteIcon color="secondary" />
+              ) : (
+                <Tooltip title={`Like this user`}>
                   <FavoriteBorderIcon color="secondary" />
-                )}
-              </IconButton>
-            </Tooltip>
+                </Tooltip>
+              )}
+            </IconButton>
           }
           title={
             <Typography sx={styles.cardTitle}>
