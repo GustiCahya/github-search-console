@@ -1,70 +1,57 @@
-# Getting Started with Create React App
+# Github Search Console
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Simpler version of GitHub search console website
 
-## Available Scripts
+## Installation
 
-In the project directory, you can run:
+After you clone the repo, install all the necessary npm dependencies:
 
-### `npm start`
+```
+npm install
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+or
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```
+yarn
+```
+Create .env file then you can look at the .env.example file to see the environment variables that required to run the app
 
-### `npm test`
+## Running the App
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+To run the App, just use:
 
-### `npm run build`
+```
+npm run start
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+or
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+yarn start
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## List of Dependencies
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+* "@emotion/react": "^11.8.1",
+* "@emotion/styled": "^11.8.1",
+* "@mui/icons-material": "^5.4.2",
+* "@mui/lab": "^5.0.0-alpha.71",
+* "@mui/material": "^5.4.3",
+* "@restart/hooks": "^0.4.5",
+* "@testing-library/jest-dom": "^5.16.2",
+* "@testing-library/react": "^12.1.3",
+* "@testing-library/user-event": "^13.5.0",
+* "axios": "^0.26.0",
+* "lottie-react": "^2.2.1",
+* "react": "^17.0.2",
+* "react-dom": "^17.0.2",
+* "react-masonry-css": "^1.0.16",
+* "react-redux": "7.1.0-rc.1",
+* "react-router-dom": "5.3.0",
+* "react-scripts": "5.0.0",
+* "redux": "4.0.0-rc.1",
+* "redux-devtools-extension": "^2.13.9",
+* "redux-persist": "^6.0.0",
+* "redux-thunk": "^2.4.1",
+* "web-vitals": "^2.1.4"
