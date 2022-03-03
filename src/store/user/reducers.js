@@ -5,7 +5,7 @@ const initialState = {};
 function reducer(state = initialState, action) {
   switch (action.type) {
     case types.SET_USER:
-      return {...state, ...action.payload};
+      return action.payload;
     case types.SET_REPOSITORIES:
       return {...state, repositories: action.payload};
     case types.SET_FOLLOWERS:

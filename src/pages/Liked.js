@@ -1,13 +1,18 @@
 import React from "react";
 import { Container, Skeleton, Box } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import WelcomeLiked from "../components/molecules/WelcomeLiked";
 import UserCard from "../components/atoms/UserCard";
 import GridMasonry from "../components/atoms/GridMasonry";
+import { getLikedUsers } from "../store/likedUsers/actions";
 
 export default function Liked() {
   const loading = useSelector((state) => state.loading.main);
   const likedUsers = useSelector((state) => state.likedUsers);
+  const dispatch = useDispatch();
+  React.useEffect(() => {
+    dispatch(getLikedUsers());
+  }, [dispatch]);
   return (
     <Container>
       {likedUsers.length > 0 ? (
