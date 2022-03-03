@@ -15,7 +15,7 @@ or
 ```
 yarn
 ```
-Create .env file then you can look at the .env.example file to see the environment variables that required to run the app
+Create **.env** file then you can look at the **.env.example** file to see the environment variables that required to run the app
 
 ## Running the App
 
