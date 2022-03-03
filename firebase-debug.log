@@ -1,0 +1,25 @@
+[debug] [2022-03-03T10:54:46.930Z] ----------------------------------------------------------------------
+[debug] [2022-03-03T10:54:46.933Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\HayoKerja\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2022-03-03T10:54:46.933Z] CLI Version:   9.12.0
+[debug] [2022-03-03T10:54:46.934Z] Platform:      win32
+[debug] [2022-03-03T10:54:46.934Z] Node Version:  v14.17.0
+[debug] [2022-03-03T10:54:46.935Z] Time:          Thu Mar 03 2022 18:54:46 GMT+0800 (Central Indonesia Time)
+[debug] [2022-03-03T10:54:46.935Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-03-03T10:54:46.951Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-03-03T10:54:46.951Z] > authorizing via signed-in user (gustisuperji@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  D:\1. PROJECT\ODDLE\oddle-frontend-challange
+
+Before we get started, keep in mind:
+
+  * You are initializing in an existing Firebase project directory
+
