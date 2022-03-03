@@ -6,7 +6,7 @@ import {
   Typography,
   IconButton,
   Pagination,
-  Skeleton
+  Skeleton,
 } from "@mui/material";
 import UserCard from "../components/atoms/UserCard";
 import { useSelector, useDispatch } from "react-redux";
@@ -16,6 +16,7 @@ import Welcome from "../components/molecules/Welcome";
 import SearchNotFound from "../components/molecules/SearchNotFound";
 import GridMasonry from "../components/atoms/GridMasonry";
 import thousandSeparator from "../utils/thousandSeparator";
+import useWindowDimensions from "../hooks/useWindowDimensions";
 
 const styles = {
   textField: {
@@ -50,15 +51,16 @@ export default function Main() {
   const [isSubmit, setIsSubmit] = React.useState(false);
   const [page, setPage] = React.useState(1);
   const [search, setSearch] = React.useState("");
+  const { width } = useWindowDimensions();
   const users = useSelector((state) => state.users);
   const loading = useSelector((state) => state.loading.main);
   const dispatch = useDispatch();
   const searchUsers = React.useCallback(
     async (page = 1) => {
-        setPage(page);
-        dispatch(getUsers(search, page))
+      setPage(page);
+      dispatch(getUsers(search, page))
         .then(() => setIsSubmit(true))
-        .catch(() => setIsSubmit(false))
+        .catch(() => setIsSubmit(false));
     },
     [dispatch, search]
   );
@@ -106,22 +108,24 @@ export default function Main() {
       />
       {/* display items */}
       {loading ? (
-        <Box sx={{my: 2}}>
+        <Box sx={{ my: 2 }}>
           <Skeleton
-            sx={{mb: 1.5, borderRadius: "2px"}}
+            sx={{ mb: 1.5, borderRadius: "2px" }}
             variant="text"
             width={210}
             height={25}
           />
           <GridMasonry sx={styles.cards}>
-            {Array(9).fill().map((_, idx) => (
-              <Skeleton
-                key={idx}
-                sx={{borderRadius: "10px", mb: 3}}
-                variant="rectangular"
-                height={90}
-              />
-            ))}
+            {Array(9)
+              .fill()
+              .map((_, idx) => (
+                <Skeleton
+                  key={idx}
+                  sx={{ borderRadius: "10px", mb: 3 }}
+                  variant="rectangular"
+                  height={90}
+                />
+              ))}
           </GridMasonry>
         </Box>
       ) : search.length > 0 && users.totalCount === 0 && isSubmit ? (
@@ -143,10 +147,11 @@ export default function Main() {
         <Welcome />
       )}
       {users.totalCount > 0 ? (
-        <Box sx={{display: 'flex', justifyContent: 'center'}}>
+        <Box sx={{ display: "flex", justifyContent: "center" }}>
           <Pagination
             sx={styles.boxPagination}
             count={users.pagesLength}
+            size={width < 900 ? "small" : "medium"}
             shape="rounded"
             color="primary"
             page={page}

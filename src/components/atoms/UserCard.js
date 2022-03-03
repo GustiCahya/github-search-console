@@ -2,7 +2,6 @@ import React from "react";
 import {
   Card,
   CardContent,
-  CardHeader,
   IconButton,
   Typography,
   CardMedia,
@@ -24,8 +23,14 @@ const styles = {
     boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.1);",
   },
   cardMedia: {
-    width: 151,
-    height: 80,
+    width: {
+      xs: 60,
+      sm: 151,
+    },
+    height: {
+      xs: undefined,
+      sm: 80,
+    },
     borderRadius: "4px",
     m: "8px",
     mr: 0,
@@ -33,12 +38,24 @@ const styles = {
   },
   cardHeader: {
     display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
     pb: 0,
   },
   cardTitle: {
     fontFamily: "Jost",
-    fontSize: 16,
-    lineHeight: "24px",
+    fontSize: {
+      xs: 10,
+      sm: 16,
+    },
+    lineHeight: {
+      xs: undefined,
+      sm: "24px",
+    },
+    inlineSize: {
+      xs: "6ch",
+    },
+    overflowWrap: "break-word",
     fontWeight: "bold",
     flexGrow: 1,
     "& a": {
@@ -47,12 +64,24 @@ const styles = {
     },
   },
   cardContent: {
-    pt: "6px",
+    width: "100%"
+  },
+  iconButton: {
+    width: {
+      xs: 18,
+      sm: 30,
+    },
   },
   text: {
     fontFamily: "Jost",
-    fontSize: 12,
-    lineHeight: "16px",
+    fontSize: {
+      xs: 8,
+      sm: 12,
+    },
+    lineHeight: {
+      xs: undefined,
+      sm: "16px",
+    },
   },
 };
 
@@ -71,68 +100,64 @@ export default function UserCard({ user }) {
         alt="User Profile Picture"
         onError={({ currentTarget }) => {
           currentTarget.onerror = null;
-          currentTarget.src="/profile.png";
+          currentTarget.src = "/profile.png";
         }}
       />
-      <Box sx={{ width: "100%" }}>
-        <CardHeader
-          sx={styles.cardHeader}
-          action={
-            <>
-              {likedUsers.some((item) => item.id === user.id) ? (
-                <IconButton
-                  onClick={() => {
-                    dispatch(dislikeUser(user));
-                    forceUpdate();
-                  }}
-                >
-                  <FavoriteIcon color="secondary" />
-                </IconButton>
-              ) : (
+      <CardContent sx={styles.cardContent}>
+        <Box sx={styles.cardHeader}>
+          <Typography sx={styles.cardTitle}>
+            <Tooltip title="Click to see user detail">
+              <Link to={`/users/${user.login}`}>{user.login}</Link>
+            </Tooltip>
+          </Typography>
+          <Box sx={{ display: "block" }}>
+            {likedUsers.some((item) => item.id === user.id) ? (
+              <IconButton
+                onClick={() => {
+                  dispatch(dislikeUser(user));
+                  forceUpdate();
+                }}
+              >
+                <FavoriteIcon sx={styles.iconButton} color="secondary" />
+              </IconButton>
+            ) : (
+              <Tooltip title={`Like this user`}>
                 <IconButton
                   onClick={() => {
                     dispatch(likeUser(user));
                     forceUpdate();
                   }}
                 >
-                  <Tooltip title={`Like this user`}>
-                    <FavoriteBorderIcon color="secondary" />
-                  </Tooltip>
+                  <FavoriteBorderIcon
+                    sx={styles.iconButton}
+                    color="secondary"
+                  />
                 </IconButton>
-              )}
-            </>
-          }
-          title={
-            <Typography sx={styles.cardTitle}>
-              <Tooltip title="Click to see user detail">
-                <Link to={`/users/${user.login}`}>{user.login}</Link>
               </Tooltip>
-            </Typography>
-          }
-        />
-        <CardContent sx={styles.cardContent}>
-          <Typography
-            sx={{
-              ...styles.text,
-              visibility: user.followers > 0 ? "visible" : "hidden",
-            }}
-            variant="body2"
-            color="textSecondary"
-          >
-            {nFormatter(user.followers, 1)} followers
-          </Typography>
-          <Typography
-            sx={{
-              ...styles.text,
-              visibility: user.following > 0 ? "visible" : "hidden",
-            }}
-            variant="body2"
-            color="textSecondary"
-          >
-            {nFormatter(user.following, 1)} followings
-          </Typography>
-        </CardContent>
-      </Box>
+            )}
+          </Box>
+        </Box>
+        <Typography
+          sx={{
+            ...styles.text,
+            visibility: user.followers > 0 ? "visible" : "hidden",
+          }}
+          variant="body2"
+          color="textSecondary"
+        >
+          {nFormatter(user.followers, 1)} followers
+        </Typography>
+        <Typography
+          sx={{
+            ...styles.text,
+            visibility: user.following > 0 ? "visible" : "hidden",
+          }}
+          variant="body2"
+          color="textSecondary"
+        >
+          {nFormatter(user.following, 1)} followings
+        </Typography>
+      </CardContent>
     </Card>
   );
 }

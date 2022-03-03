@@ -6,10 +6,10 @@ export default function GridMasonry({ children, sx }) {
   const breakpoints = {
     default: 3,
     1100: 2,
-    700: 1,
+    355: 1,
   };
   return (
-    <Box sx>
+    <Box>
       <Masonry
         breakpointCols={breakpoints}
         className="my-masonry-grid"
