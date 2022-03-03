@@ -13,7 +13,6 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import SearchIcon from "@mui/icons-material/Search";
 import HomeIcon from "@mui/icons-material/Home";
 import SwitchDarkMode from "../components/atoms/SwitchDarkMode";
-import { useTheme } from "@mui/material/styles";
 
 const styles = {
   appBar: {
@@ -59,7 +58,6 @@ export default function Layout({ children }) {
   );
   const history = useHistory();
   const location = useLocation();
-  const theme = useTheme();
   const indexPath = React.useMemo(() => {
     const pathname = location.pathname;
     const index = menuItems.findIndex((item) =>
